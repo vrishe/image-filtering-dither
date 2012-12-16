@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Файлы исходного кода">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Заголовочные файлы">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Filters">
+      <UniqueIdentifier>{3e844ee1-ef91-4344-aca1-19c7948a95e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Filters\Dithering">
+      <UniqueIdentifier>{3e2b38d9-f0e9-4328-9d46-664fae081936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Filters\Optimization">
+      <UniqueIdentifier>{5b62fed2-5cd7-4c00-9d40-79a639ac3a42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Filters">
+      <UniqueIdentifier>{4a4bd726-a3cd-4407-b818-a2a4f5e073f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Filters\Dithering">
+      <UniqueIdentifier>{3a573d3a-4b38-4232-b530-ea2c660855f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Filters\Optimization">
+      <UniqueIdentifier>{be12330c-ce0c-49c4-a794-074384cad836}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IImageFilter.h">
+      <Filter>Заголовочные файлы\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageFiltering.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="RGBLinearQuantizationFilter.h">
+      <Filter>Заголовочные файлы\Filters\Optimization</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="RGBLinearQuantizationFilter.cpp">
+      <Filter>Файлы исходного кода\Filters\Optimization</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
