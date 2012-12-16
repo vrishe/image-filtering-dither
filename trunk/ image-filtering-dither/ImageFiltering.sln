@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageFilterTest", "ImageFilterTest\ImageFilterTest.vcxproj", "{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F} = {7A616D9A-4312-47F3-B40D-3E2AB918869F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageFiltering", "ImageFiltering\ImageFiltering.vcxproj", "{7A616D9A-4312-47F3-B40D-3E2AB918869F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Devel|Win32 = Devel|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}.Debug|Win32.ActiveCfg = Debug|Win32
+		{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}.Debug|Win32.Build.0 = Debug|Win32
+		{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}.Devel|Win32.ActiveCfg = Debug|Win32
+		{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}.Devel|Win32.Build.0 = Debug|Win32
+		{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}.Release|Win32.ActiveCfg = Release|Win32
+		{52C44E61-A9E6-43AC-A3D5-4E8FAFF40F81}.Release|Win32.Build.0 = Release|Win32
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F}.Debug|Win32.Build.0 = Debug|Win32
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F}.Devel|Win32.ActiveCfg = Debug|Win32
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F}.Devel|Win32.Build.0 = Debug|Win32
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F}.Release|Win32.ActiveCfg = Release|Win32
+		{7A616D9A-4312-47F3-B40D-3E2AB918869F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal
