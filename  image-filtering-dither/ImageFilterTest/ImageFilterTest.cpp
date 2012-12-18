@@ -180,7 +180,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT:
 		{
-			ipo::IImageFilter *filter = new ipo::RGBLinearQuantizationFilter(RGB_QUANTS(2,3,1));
+			/*ipo::IImageFilter *filter = new ipo::RGBLinearQuantizationFilter(RGB_QUANTS(8,8,4));
+			filter->Apply(test_image);
+			delete filter;*/
+
+			ipo::IImageFilter *filter = new ipo::RGBPriorityQuantizationFilter(256);
 			filter->Apply(test_image);
 			delete filter;
 

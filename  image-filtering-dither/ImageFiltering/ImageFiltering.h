@@ -3,5 +3,6 @@
 #define _IMAGEPALETTEOPTIMIZER_H_
 
 #include "RGBLinearQuantizationFilter.h"
+#include "RGBPriorityQuantizationFilter.h"
 
 #endif

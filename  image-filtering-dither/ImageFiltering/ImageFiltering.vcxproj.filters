@@ -44,12 +44,18 @@
     <ClInclude Include="RGBLinearQuantizationFilter.h">
       <Filter>Заголовочные файлы\Filters\Optimization</Filter>
     </ClInclude>
+    <ClInclude Include="RGBPriorityQuantizationFilter.h">
+      <Filter>Заголовочные файлы\Filters\Optimization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="RGBLinearQuantizationFilter.cpp">
+      <Filter>Файлы исходного кода\Filters\Optimization</Filter>
+    </ClCompile>
+    <ClCompile Include="RGBPriorityQuantizationFilter.cpp">
       <Filter>Файлы исходного кода\Filters\Optimization</Filter>
     </ClCompile>
   </ItemGroup>
