@@ -1,8 +1,8 @@
 // ImageFilterTest.cpp: определяет точку входа для приложения.
 //
 
-#include "stdafx.h"
 #include "ImageFilterTest.h"
+#include "ImageSaver.h"
 
 #define MAX_LOADSTRING 100
 
@@ -212,6 +212,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			DeleteObject(hBmp);
 			DeleteDC(hMemDc);
+
+			ImageSaver::SaveAsBmp(*test_image, _T("result_image.bmp"));
 
 			EndPaint(hWnd, &ps);
 		}
