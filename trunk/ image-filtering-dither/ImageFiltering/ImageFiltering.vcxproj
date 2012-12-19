@@ -103,11 +103,13 @@
     <ClInclude Include="RGBPriorityQuantizationFilter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UniformDistributionDither.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RGBLinearQuantizationFilter.cpp" />
     <ClCompile Include="RGBPriorityQuantizationFilter.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="UniformDistributionDither.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

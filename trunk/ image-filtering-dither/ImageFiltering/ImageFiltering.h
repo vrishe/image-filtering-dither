@@ -4,5 +4,6 @@
 
 #include "RGBLinearQuantizationFilter.h"
 #include "RGBPriorityQuantizationFilter.h"
+#include "UniformDistributionDither.h"
 
 #endif

@@ -19,7 +19,7 @@ namespace ipo
 		RGBLinearQuantizationFilter(rgb_quants palette_quants);
 		~RGBLinearQuantizationFilter();
 
-		bool Apply(til::Image *image) const;
+		bool Apply(til::Image &image) const;
 	};
 }
 
