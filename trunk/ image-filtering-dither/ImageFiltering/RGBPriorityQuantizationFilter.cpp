@@ -86,14 +86,14 @@ namespace ipo
 		}
 		
 		til::uint64 palette_size = palette.size();
-		std::vector <rgb_palette_element> palette_final(palette_size);
+		std::vector <rgb_palette_element> palette_final(static_cast<std::size_t>(palette_size));
 		rgb_palette::iterator iterator = palette.begin();
 		for (til::uint64 i = 0; i < palette_size; ++i) {
-			palette_final[i] = *iterator;
+			palette_final[static_cast<std::size_t>(i)] = *iterator;
 			iterator++;
 		}
 		std::sort(palette_final.begin(), palette_final.end(), UDgreater_second);
-		palette_final.resize(_color_number);
+		palette_final.resize(static_cast<std::size_t>(_color_number));
 		
 		for (til::uint64 i = 0; i < pixelCount; ++i)
 		{
