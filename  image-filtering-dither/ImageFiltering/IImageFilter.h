@@ -14,7 +14,7 @@ namespace ipo
 	public:
 		inline virtual ~IImageFilter() = 0 { };
 
-		virtual bool Apply(til::Image *image) const = 0;
+		virtual bool Apply(til::Image &image) const = 0;
 	};
 
 }

@@ -16,7 +16,7 @@ namespace ipo
 		RGBPriorityQuantizationFilter(til::uint64 color_number);
 		~RGBPriorityQuantizationFilter();
 
-		bool Apply(til::Image *image) const;
+		bool Apply(til::Image &image) const;
 	};
 }
 

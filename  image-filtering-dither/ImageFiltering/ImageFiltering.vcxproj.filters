@@ -47,6 +47,9 @@
     <ClInclude Include="RGBPriorityQuantizationFilter.h">
       <Filter>Заголовочные файлы\Filters\Optimization</Filter>
     </ClInclude>
+    <ClInclude Include="UniformDistributionDither.h">
+      <Filter>Заголовочные файлы\Filters\Dithering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -57,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="RGBPriorityQuantizationFilter.cpp">
       <Filter>Файлы исходного кода\Filters\Optimization</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformDistributionDither.cpp">
+      <Filter>Файлы исходного кода\Filters\Dithering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -136,6 +136,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
+til::Image *ref_image = NULL;
 til::Image *test_image = NULL;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -147,7 +148,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		{
 			test_image = til::TIL_Load("test_image.bmp", TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_R8G8B8);
-			if (test_image == NULL)
+			ref_image = til::TIL_Load("test_image.bmp", TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_R8G8B8);
+			if (test_image == NULL || ref_image == NULL)
 			{
 				MessageBox(hWnd, _T("Failed to load image specified!"), _T("Fuck"), MB_OK);
 				return -1;
@@ -180,13 +182,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT:
 		{
-			/*ipo::IImageFilter *filter = new ipo::RGBLinearQuantizationFilter(RGB_QUANTS(8,8,4));
-			filter->Apply(test_image);
+			ipo::IImageFilter *filter = new ipo::RGBLinearQuantizationFilter(RGB_QUANTS(8,8,4));
+			filter->Apply(*test_image);
+			delete filter;
+
+			/*ipo::IImageFilter *filter = new ipo::RGBPriorityQuantizationFilter(256);
+			filter->Apply(*test_image);
 			delete filter;*/
 
-			ipo::IImageFilter *filter = new ipo::RGBPriorityQuantizationFilter(256);
-			filter->Apply(test_image);
-			delete filter;
+			//float distrib_pattern[8] = {0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125};
+			float distrib_pattern[8] = {0, 0, 0, 7.0 / 16.0, 1.0 / 16.0, 5.0 / 16.0, 3.0 / 16.0, 0};
+			ipo::IImageFilter *dither = new ipo::UniformDistributionDither(*ref_image, distrib_pattern, DITH_MOVE_HORIZONTAL | DITH_STARTPOINT_REMAIN);
+			dither->Apply(*test_image);
+			delete dither;
 
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
@@ -208,6 +216,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_DESTROY:
 		til::TIL_Release(test_image);
+		til::TIL_Release(ref_image);
 		PostQuitMessage(0);
 		break;
 	default:

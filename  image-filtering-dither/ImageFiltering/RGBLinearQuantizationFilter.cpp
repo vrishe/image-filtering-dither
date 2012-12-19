@@ -15,12 +15,11 @@ namespace ipo
 	{
 	}
 
-	bool RGBLinearQuantizationFilter::Apply(til::Image *image) const
+	bool RGBLinearQuantizationFilter::Apply(til::Image &image) const
 	{
-		if (image == NULL) return false;
-		if (image->GetBitDepth() != til::Image::BPP_32B_R8G8B8) return false;
+		if (image.GetBitDepth() != til::Image::BPP_32B_R8G8B8) return false;
 
-		til::uint32 *image_pixels = reinterpret_cast<til::uint32*>(image->GetPixels());
+		til::uint32 *image_pixels = reinterpret_cast<til::uint32*>(image.GetPixels());
 
 		std::vector<til::byte> palette[3] = { 
 			std::vector<til::byte>(max(((til::byte)(_palette_quants)),       1), 0x00),
@@ -38,7 +37,7 @@ namespace ipo
 		for(std::vector<til::byte>::size_type i = 0, max = palette[1].size(); i < max; ++i) palette[1][i] = static_cast<til::byte>(i * index[1]);
 		for(std::vector<til::byte>::size_type i = 0, max = palette[2].size(); i < max; ++i) palette[2][i] = static_cast<til::byte>(i * index[2]);
 
-		for (til::uint64 i = 0, max = image->GetWidth() * image->GetHeight(); i < max; ++i)
+		for (til::uint64 i = 0, max = image.GetWidth() * image.GetHeight(); i < max; ++i)
 		{
 			image_pixels[i] = RGB(
 					palette[0][index[0] == 0x00 ? 0 : RED(image_pixels[i])   / index[0]],
