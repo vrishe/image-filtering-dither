@@ -196,6 +196,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			dither->Apply(*test_image);
 			delete dither;
 
+			ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *test_image);
+
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
 

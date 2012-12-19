@@ -27,6 +27,12 @@
     <Filter Include="Файлы исходного кода\Filters\Optimization">
       <UniqueIdentifier>{be12330c-ce0c-49c4-a794-074384cad836}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\Analyzers">
+      <UniqueIdentifier>{5b60dc45-a193-46f8-a38d-a62282c284ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Analyzers">
+      <UniqueIdentifier>{1b29bdde-574e-40b9-8262-07a61ed2e352}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IImageFilter.h">
@@ -50,6 +56,9 @@
     <ClInclude Include="UniformDistributionDither.h">
       <Filter>Заголовочные файлы\Filters\Dithering</Filter>
     </ClInclude>
+    <ClInclude Include=".\ImageTransformationAnalysis.h">
+      <Filter>Заголовочные файлы\Analyzers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="UniformDistributionDither.cpp">
       <Filter>Файлы исходного кода\Filters\Dithering</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageTransformationAnalysis.cpp">
+      <Filter>Файлы исходного кода\Analyzers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

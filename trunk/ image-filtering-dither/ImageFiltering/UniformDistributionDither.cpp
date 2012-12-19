@@ -8,9 +8,9 @@ namespace ipo
 	UniformDistributionDither::UniformDistributionDither(til::Image &image, float distibution_mask[], til::byte movement_pattern) : 
 		_move_pattern(movement_pattern) {
 		_ref_image = &image;
-		/*for (int i = 0; i < 8; ++i)
-			_distrib_mask[i] = distibution_mask[i];*/
-		CopyMemory(_distrib_mask, distibution_mask, 8 * sizeof(float));
+		for (int i = 0; i < 8; ++i)
+			_distrib_mask[i] = distibution_mask[i];
+		//CopyMemory(_distrib_mask, distibution_mask, 8 * sizeof(float));
 	}
 
 	UniformDistributionDither::~UniformDistributionDither(void)	{}

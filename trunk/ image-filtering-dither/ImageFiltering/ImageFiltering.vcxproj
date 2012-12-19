@@ -21,14 +21,14 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -97,6 +97,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include=".\ImageTransformationAnalysis.h" />
     <ClInclude Include="IImageFilter.h" />
     <ClInclude Include="ImageFiltering.h" />
     <ClInclude Include="RGBLinearQuantizationFilter.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="UniformDistributionDither.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ImageTransformationAnalysis.cpp" />
     <ClCompile Include="RGBLinearQuantizationFilter.cpp" />
     <ClCompile Include="RGBPriorityQuantizationFilter.cpp" />
     <ClCompile Include="stdafx.cpp" />

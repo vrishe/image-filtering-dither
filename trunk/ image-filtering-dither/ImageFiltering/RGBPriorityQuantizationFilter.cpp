@@ -39,34 +39,6 @@ namespace ipo
 		return result;
 	}
 
-	//bool UDless_first (rgb_palette_element elem1, rgb_palette_element elem2) {
-	//	return elem1.first < elem2.first;
-	//}
-
-	//til::uint32 find_nearest_color (std::vector <rgb_palette_element> _array, til::uint32 _value) {
-	//	size_t	imin = 0,
-	//			imax = _array.size() - 1,
-	//			imid;
-
-	//	while (imin < imax) {
-	//		imid = (imin + imax) / 2;
-	//		if (imid >= imax) break;
- //
-	//		// reduce the search
-	//		if (_array[imid].first < _value)
-	//			imin = imid + 1;
-	//		else
-	//			imax = imid;
-	//	} // At exit of while:
-	//	//   if _array is empty, then imax < imin
-	//	//   otherwise imax == imin
- //
-	//	if (imax == imin)
-	//		return _array[imin].first;
-	//	else
-	//		return -1;
-	//}
-
 	bool RGBPriorityQuantizationFilter::Apply(til::Image &image) const {
 		if (image.GetBitDepth() != til::Image::BPP_32B_R8G8B8) return false;
 
