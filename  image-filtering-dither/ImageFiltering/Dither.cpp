@@ -1,11 +1,11 @@
 
-#include "UniformDistributionDither.h"
+#include "Dither.h"
 
 #include <exception>
 
 namespace ipo
 {
-	UniformDistributionDither::UniformDistributionDither(til::Image &image, float distibution_mask[], til::byte movement_pattern) : 
+	Dither::Dither(til::Image &image, float distibution_mask[], til::byte movement_pattern) : 
 		_move_pattern(movement_pattern) {
 		_ref_image = &image;
 		for (int i = 0; i < 8; ++i)
@@ -13,9 +13,9 @@ namespace ipo
 		//CopyMemory(_distrib_mask, distibution_mask, 8 * sizeof(float));
 	}
 
-	UniformDistributionDither::~UniformDistributionDither(void)	{}
+	Dither::~Dither(void)	{}
 
-	til::uint32 UniformDistributionDither::colorWithError(const til::uint32 *image_pixels, til::uint64 pos, int red_err, int green_err, int blue_err) const {
+	til::uint32 Dither::colorWithError(const til::uint32 *image_pixels, til::uint64 pos, int red_err, int green_err, int blue_err) const {
 		til::byte red = RED(image_pixels[pos]) + static_cast<til::byte>(red_err * _distrib_mask[0]);
 		if (red_err > 0 && red < RED(image_pixels[pos]))
 			red = 0xff;
@@ -37,7 +37,7 @@ namespace ipo
 		return RGB(red, green, blue);
 	}
 
-	bool UniformDistributionDither::Apply(til::Image &image) const {
+	bool Dither::Apply(til::Image &image) const {
 		if (image.GetBitDepth() != til::Image::BPP_32B_R8G8B8) return false;
 
 		til::uint32 *image_pixels = reinterpret_cast<til::uint32*>(image.GetPixels());

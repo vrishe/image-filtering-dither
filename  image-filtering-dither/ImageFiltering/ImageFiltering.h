@@ -4,7 +4,7 @@
 
 #include "RGBLinearQuantizationFilter.h"
 #include "RGBPriorityQuantizationFilter.h"
-#include "UniformDistributionDither.h"
+#include "Dither.h"
 #include "ImageTransformationAnalysis.h"
 
 #endif
