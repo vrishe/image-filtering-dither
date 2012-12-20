@@ -27,21 +27,19 @@ namespace ImageSaver
 		bitmap_header.bfOffBits				= sizeof(bitmap_file_header) + bitmap_info.biSize;
 
 		std::vector<til::byte> bitmap_data;
-		for (std::size_t i = 0, div = image.GetWidth(), max_i = image.GetWidth() * image.GetHeight(); i < max_i; ++i)
-		{
-			if (i % div == 0)
-			{
-				std::size_t pad_count = (bitmap_data.size() / 3) % div;
-				if (pad_count > 0) 
-				{
-					bitmap_data.insert(bitmap_data.end(), pad_count, 0x00);
-				}
-			}
 
-			unsigned long pixel_data = reinterpret_cast<unsigned long*>(image.GetPixels())[i];
-			bitmap_data.push_back(RED(pixel_data));
-			bitmap_data.push_back(GREEN(pixel_data));
-			bitmap_data.push_back(BLUE(pixel_data));
+		unsigned long *pixel_data = reinterpret_cast<unsigned long*>(image.GetPixels());
+		for (std::size_t i = 0, max_i = image.GetHeight(); i < max_i; ++i)
+		{
+			std::size_t max_j = image.GetWidth();
+			for (std::size_t j = 0; j < max_j; ++j)
+			{
+				unsigned long pixel_value = pixel_data[i * max_j + j];
+				bitmap_data.push_back(RED(pixel_value));
+				bitmap_data.push_back(GREEN(pixel_value));
+				bitmap_data.push_back(BLUE(pixel_value));
+			}
+			bitmap_data.insert(bitmap_data.end(), max_j % 4, 0x00);
 		}
 
 		bitmap_header.bfSize = bitmap_header.bfOffBits + bitmap_data.size();
