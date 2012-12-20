@@ -44,7 +44,9 @@ inline const _tstring TIL_GetErrorEx()
 #define PARAM_MIN_COUNT 3
 int _tmain(int argc, _TCHAR *argv[])
 {
-	if (argc < PARAM_MIN_COUNT) return 0;
+	int ret_result = 0;
+
+	if (argc < PARAM_MIN_COUNT) return ret_result;
 	std::vector<_tstring> program_log;
 
 	std::string mbfile_name(_tcslen(argv[1]), '\0');
@@ -72,19 +74,19 @@ int _tmain(int argc, _TCHAR *argv[])
 	else
 	{
 		program_log.push_back(TIL_GetErrorEx());
-		return -1;
+		ret_result = -1;
 	}
 
-	_tostream output = _tcout;
+	_tostream *output = &_tcout;
 
 	_tofstream *out_file = NULL;
 	if (param_index = argv_index_of(argc, argv, _T(">"), true, param_index) != 0)
 	{
 		out_file = new _tofstream(argv[param_index + 1]);
-		output = *out_file;
+		output = out_file;
 	}
 
-	for (std::vector<_tstring>::size_type i = 0, max_i = program_log.size(); i < max_i; ++i) output << program_log[i];
+	for (std::vector<_tstring>::size_type i = 0, max_i = program_log.size(); i < max_i; ++i) (*output) << program_log[i] << std::endl;
 
 	if (out_file != NULL)
 	{
@@ -95,5 +97,5 @@ int _tmain(int argc, _TCHAR *argv[])
 	til::TIL_Release(ref_image);
 	til::TIL_ShutDown();
 
-	return 0;
+	return ret_result;
 }
