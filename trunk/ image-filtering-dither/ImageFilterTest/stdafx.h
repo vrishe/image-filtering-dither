@@ -17,5 +17,10 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
+
 #include <ImageFiltering.h>
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
