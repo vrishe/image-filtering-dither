@@ -18,13 +18,13 @@ namespace ImageSaver
 		bitmap_info.biHeight		= -static_cast<til::int32>(image.GetHeight());
 		bitmap_info.biPlanes		= 1;
 		bitmap_info.biBitCount		= 24;
-		bitmap_info.biCompression	= 0;			// BI_RGB;
+		bitmap_info.biCompression	= 0;	// BI_RGB;
 		bitmap_info.biXPelsPerMeter	= 4000;
 		bitmap_info.biYPelsPerMeter	= 4000;
 
 		bitmap_file_header bitmap_header	= { 0x00 };
-		bitmap_header.bfType				= 0x4D42; // "BM"
-		bitmap_header.bfOffBits				= bitmap_info.biSize + sizeof(bitmap_file_header);
+		bitmap_header.bfType				= 0x4D42;   // "BM"
+		bitmap_header.bfOffBits				= sizeof(bitmap_file_header) + bitmap_info.biSize;
 
 		std::vector<til::byte> bitmap_data;
 		for (std::size_t i = 0, div = image.GetWidth(), max_i = image.GetWidth() * image.GetHeight(); i < max_i; ++i)
@@ -32,7 +32,10 @@ namespace ImageSaver
 			if (i % div == 0)
 			{
 				std::size_t pad_count = (bitmap_data.size() / 3) % div;
-				if (pad_count > 0) bitmap_data.insert(bitmap_data.end(), pad_count, 0x00);
+				if (pad_count > 0) 
+				{
+					bitmap_data.insert(bitmap_data.end(), pad_count, 0x00);
+				}
 			}
 
 			unsigned long pixel_data = reinterpret_cast<unsigned long*>(image.GetPixels())[i];
