@@ -5,7 +5,7 @@
 
 namespace ipo
 {
-	class UniformDistributionDither :
+	class Dither :
 		public IImageFilter
 	{
 	private:
@@ -15,8 +15,8 @@ namespace ipo
 
 		til::uint32 colorWithError(const til::uint32 *image_pixels, til::uint64 pos, int red_err, int green_err, int blue_err) const;
 	public:
-		UniformDistributionDither(til::Image &image, float distibution_mask[], til::byte movement_pattern);
-		~UniformDistributionDither();
+		Dither(til::Image &image, float distibution_mask[], til::byte movement_pattern);
+		~Dither();
 
 		bool Apply(til::Image &image) const;
 	};

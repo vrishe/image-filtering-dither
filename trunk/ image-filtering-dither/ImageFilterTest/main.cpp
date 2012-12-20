@@ -53,28 +53,121 @@ int _tmain(int argc, _TCHAR *argv[])
 	WideCharToMultiByte(CP_ACP, WC_COMPOSITECHECK, argv[1], mbfile_name.length(),  &mbfile_name[0], mbfile_name.length(), NULL, NULL); 
 
 	til::TIL_Init();
-	til::Image *ref_image = til::TIL_Load(mbfile_name.data(), TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_R8G8B8);
 
 	int param_index = 0;
-	if (ref_image != NULL)
-	{
-		if ((param_index = max(param_index, argv_index_of(argc, argv, _T("/oq"), true, 2))) != 0)
-		{
-			// Parse here number of sRGB dimensions subdivisions
-		}
-		if ((param_index = max(param_index, argv_index_of(argc, argv, _T("/op"), true, 2))) != 0)
-		{
-			// Parse here number of sRGB dimensions subdivisions
-		}
-		if ((param_index = argv_index_of(argc, argv, _T("-d"), false, param_index)) != 0)
-		{
-			// Copying an image instead of opening a new one, might be a great desicion
-		}
-	}
-	else
+	til::Image *image[2];
+	for (int i = 0; i < 2; i++)
+		image[i] = NULL;
+	til::Image *ref_image = til::TIL_Load(mbfile_name.data(), TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_R8G8B8);
+	if (ref_image == NULL) 
 	{
 		program_log.push_back(TIL_GetErrorEx());
 		ret_result = -1;
+	}
+
+	if ((param_index = max(0, argv_index_of(argc, argv, _T("/oq"), true, 2))) != 0)
+	{
+		image[0] = til::TIL_Load(mbfile_name.data(), TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_R8G8B8);
+		if (image != NULL)
+		{
+			til::byte quant[3];
+			for (int i = 0; i < 3; ++i)
+				quant[i] = _tstoi(argv[param_index + i + 1]);
+			ipo::RGBLinearQuantizationFilter *filter = new ipo::RGBLinearQuantizationFilter(RGB_QUANTS(quant[0], quant[1], quant[2]));
+			filter->Apply(*image[0]);
+			delete filter;
+
+			program_log.push_back(_T("Linear quantization error: "));
+			TCHAR temp[25];
+			til::uint64 tt = ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[0]);
+			program_log.push_back(_itot(tt, temp, 10));
+
+			ImageSaver::SaveAsBmp(*image[0], _T("oq_result.bmp"));
+		}
+		else 
+		{
+			program_log.push_back(TIL_GetErrorEx());
+			ret_result = -1;
+		}
+	//	til::TIL_Release(image);
+	}
+	if ((param_index = max(0, argv_index_of(argc, argv, _T("/op"), true, 2))) != 0)
+	{
+		image[1] = til::TIL_Load(mbfile_name.data(), TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_R8G8B8);
+		if (image != NULL)
+		{
+			int color_number = _tstoi(argv[param_index + 1]);
+			ipo::RGBPriorityQuantizationFilter *filter = new ipo::RGBPriorityQuantizationFilter(color_number);
+			filter->Apply(*image[1]);
+			delete filter;
+
+			program_log.push_back(_T("Priority quantization error: "));
+			TCHAR temp[25];
+			program_log.push_back(_i64tot(ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[1]), temp, 10));
+
+			ImageSaver::SaveAsBmp(*image[1], _T("op_result.bmp"));
+		}
+		else 
+		{
+			program_log.push_back(TIL_GetErrorEx());
+			ret_result = -1;
+		}
+//		til::TIL_Release(image);
+	}
+	if ((param_index = argv_index_of(argc, argv, _T("-d:"), false, param_index)) != 0)
+	{
+		// Copying an image instead of opening a new one, might be a great desicion
+		if (ref_image != NULL) {
+			float mask[8];
+			for (int i = 0; i < 8; i++)
+				mask[i] = _tstof(argv[param_index + i + 1]);
+			til::byte movement = 0;
+			if (param_index + 9 < argc) {
+				if (_TSTR_EQ(argv[param_index + 9], _T("vertical"), 10))
+					movement = DITH_MOVE_VERTICAL;
+				if (_TSTR_EQ(argv[param_index + 9], _T("change"), 10))
+					movement = DITH_STARTPOINT_CHANGE;
+			}
+			if (param_index + 10 < argc) {
+				if (_TSTR_EQ(argv[param_index + 10], _T("vertical"), 10))
+					movement |= DITH_MOVE_VERTICAL;
+				if (_TSTR_EQ(argv[param_index + 10], _T("change"), 10))
+					movement |= DITH_STARTPOINT_CHANGE;
+			}
+
+			ipo::Dither *dither = new ipo::Dither(*ref_image, mask, movement);
+			if (image[0] != NULL)
+			{
+				dither->Apply(*image[0]);
+
+				program_log.push_back(_T("Linear quantization error after dithering: "));
+				TCHAR temp[25];
+				til::uint64 tt = ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[0]);
+				program_log.push_back(_i64tot(tt, temp, 10));
+
+				ImageSaver::SaveAsBmp(*image[0], _T("oq_dith_result.bmp"));
+			}
+	//		til::TIL_Release(image);
+			
+			if (image[1] != NULL)
+			{
+				dither->Apply(*image[1]);
+
+				program_log.push_back(_T("Priority quantization error after dithering: "));
+				TCHAR temp[25];
+				program_log.push_back(_i64tot(ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[1]), temp, 10));
+
+				ImageSaver::SaveAsBmp(*image[1], _T("op_dith_result.bmp"));
+			}
+	//		til::TIL_Release(image);
+
+			til::TIL_Release(ref_image);
+			delete dither;
+		}
+		else {
+			program_log.push_back(TIL_GetErrorEx());
+			ret_result = -1;
+		}			
 	}
 
 	_tostream *output = &_tcout;
@@ -94,7 +187,6 @@ int _tmain(int argc, _TCHAR *argv[])
 		delete out_file;
 	}
 
-	til::TIL_Release(ref_image);
 	til::TIL_ShutDown();
 
 	return ret_result;

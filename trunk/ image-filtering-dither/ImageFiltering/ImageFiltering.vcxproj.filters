@@ -53,11 +53,11 @@
     <ClInclude Include="RGBPriorityQuantizationFilter.h">
       <Filter>Заголовочные файлы\Filters\Optimization</Filter>
     </ClInclude>
-    <ClInclude Include="UniformDistributionDither.h">
-      <Filter>Заголовочные файлы\Filters\Dithering</Filter>
-    </ClInclude>
     <ClInclude Include=".\ImageTransformationAnalysis.h">
       <Filter>Заголовочные файлы\Analyzers</Filter>
+    </ClInclude>
+    <ClInclude Include=".\Dither.h">
+      <Filter>Заголовочные файлы\Filters\Dithering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,11 +70,11 @@
     <ClCompile Include="RGBPriorityQuantizationFilter.cpp">
       <Filter>Файлы исходного кода\Filters\Optimization</Filter>
     </ClCompile>
-    <ClCompile Include="UniformDistributionDither.cpp">
-      <Filter>Файлы исходного кода\Filters\Dithering</Filter>
-    </ClCompile>
     <ClCompile Include="ImageTransformationAnalysis.cpp">
       <Filter>Файлы исходного кода\Analyzers</Filter>
+    </ClCompile>
+    <ClCompile Include=".\Dither.cpp">
+      <Filter>Файлы исходного кода\Filters\Dithering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
