@@ -77,10 +77,10 @@ int _tmain(int argc, _TCHAR *argv[])
 			filter->Apply(*image[0]);
 			delete filter;
 
-			program_log.push_back(_T("Linear quantization error: "));
 			TCHAR temp[25];
 			til::uint64 tt = ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[0]);
-			program_log.push_back(_itot(tt, temp, 10));
+			_i64tot_s(tt, temp, _countof(temp), 10);
+			program_log.push_back(_tstring(_T("Linear quantization error: ")).append(temp));
 
 			ImageSaver::SaveAsBmp(*image[0], _T("oq_result.bmp"));
 		}
@@ -101,9 +101,9 @@ int _tmain(int argc, _TCHAR *argv[])
 			filter->Apply(*image[1]);
 			delete filter;
 
-			program_log.push_back(_T("Priority quantization error: "));
 			TCHAR temp[25];
-			program_log.push_back(_i64tot(ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[1]), temp, 10));
+			_i64tot_s(ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[1]), temp, _countof(temp), 10);
+			program_log.push_back(_tstring(_T("Priority quantization error: ")).append(temp));
 
 			ImageSaver::SaveAsBmp(*image[1], _T("op_result.bmp"));
 		}
@@ -119,20 +119,15 @@ int _tmain(int argc, _TCHAR *argv[])
 		// Copying an image instead of opening a new one, might be a great desicion
 		if (ref_image != NULL) {
 			float mask[8];
-			for (int i = 0; i < 8; i++)
-				mask[i] = _tstof(argv[param_index + i + 1]);
-			til::byte movement = 0;
+			for (int i = 0; i < 8; i++)	mask[i] = static_cast<float>(_tstof(argv[param_index + i + 1]));
+			til::byte movement = DITH_MOVE_HORIZONTAL | DITH_STARTPOINT_REMAIN;
 			if (param_index + 9 < argc) {
-				if (_TSTR_EQ(argv[param_index + 9], _T("vertical"), 10))
-					movement = DITH_MOVE_VERTICAL;
-				if (_TSTR_EQ(argv[param_index + 9], _T("change"), 10))
-					movement = DITH_STARTPOINT_CHANGE;
+				if (_TSTR_EQ(argv[param_index + 9], _T("vertical"), 10))	movement = DITH_MOVE_VERTICAL;
+				if (_TSTR_EQ(argv[param_index + 9], _T("change"), 10))		movement = DITH_STARTPOINT_CHANGE;
 			}
 			if (param_index + 10 < argc) {
-				if (_TSTR_EQ(argv[param_index + 10], _T("vertical"), 10))
-					movement |= DITH_MOVE_VERTICAL;
-				if (_TSTR_EQ(argv[param_index + 10], _T("change"), 10))
-					movement |= DITH_STARTPOINT_CHANGE;
+				if (_TSTR_EQ(argv[param_index + 10], _T("vertical"), 10))	movement |= DITH_MOVE_VERTICAL;
+				if (_TSTR_EQ(argv[param_index + 10], _T("change"), 10))		movement |= DITH_STARTPOINT_CHANGE;
 			}
 
 			ipo::Dither *dither = new ipo::Dither(*ref_image, mask, movement);
@@ -140,10 +135,10 @@ int _tmain(int argc, _TCHAR *argv[])
 			{
 				dither->Apply(*image[0]);
 
-				program_log.push_back(_T("Linear quantization error after dithering: "));
 				TCHAR temp[25];
 				til::uint64 tt = ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[0]);
-				program_log.push_back(_i64tot(tt, temp, 10));
+				_i64tot_s(tt, temp, _countof(temp), 10);
+				program_log.push_back(_tstring(_T("Linear quantization error after dithering: ")).append(temp));
 
 				ImageSaver::SaveAsBmp(*image[0], _T("oq_dith_result.bmp"));
 			}
@@ -153,9 +148,9 @@ int _tmain(int argc, _TCHAR *argv[])
 			{
 				dither->Apply(*image[1]);
 
-				program_log.push_back(_T("Priority quantization error after dithering: "));
 				TCHAR temp[25];
-				program_log.push_back(_i64tot(ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[1]), temp, 10));
+				_i64tot_s(ipo::ImageTransformationAnalysis::FindStandardDeviation(*ref_image, *image[1]), temp, _countof(temp), 10);
+				program_log.push_back(_tstring(_T("Priority quantization error after dithering: ")).append(temp));
 
 				ImageSaver::SaveAsBmp(*image[1], _T("op_dith_result.bmp"));
 			}
