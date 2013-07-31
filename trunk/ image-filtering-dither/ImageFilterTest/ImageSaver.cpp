@@ -12,15 +12,15 @@ namespace ImageSaver
 		std::ofstream bmp_out(file_name, std::ios::binary);
 		if (!bmp_out.is_open()) return false;
 
-		bitmap_info_header bitmap_info = { 0x00 }; 
-		bitmap_info.biSize			= sizeof(bitmap_info_header);
-		bitmap_info.biWidth			= image.GetWidth();
-		bitmap_info.biHeight		= -static_cast<til::int32>(image.GetHeight());
-		bitmap_info.biPlanes		= 1;
-		bitmap_info.biBitCount		= 24;
-		bitmap_info.biCompression	= 0;	// BI_RGB;
-		bitmap_info.biXPelsPerMeter	= 4000;
-		bitmap_info.biYPelsPerMeter	= 4000;
+		bitmap_info_header bitmap_info	= { 0x00 }; 
+		bitmap_info.biSize				= sizeof(bitmap_info_header);
+		bitmap_info.biWidth				= image.GetWidth();
+		bitmap_info.biHeight			= -static_cast<til::int32>(image.GetHeight());
+		bitmap_info.biPlanes			= 1;
+		bitmap_info.biBitCount			= 24;
+		bitmap_info.biCompression		= 0;	// BI_RGB;
+		bitmap_info.biXPelsPerMeter		= 4000;
+		bitmap_info.biYPelsPerMeter		= 4000;
 
 		bitmap_file_header bitmap_header	= { 0x00 };
 		bitmap_header.bfType				= 0x4D42;   // "BM"

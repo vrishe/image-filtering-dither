@@ -3,9 +3,9 @@
 
 #include <TinyImageLoader.h>
 
-#define RED(c)     ((til::byte)(((til::uint32)c)))
-#define GREEN(c)   ((til::byte)(((til::uint32)c) >>  8))
-#define BLUE(c)    ((til::byte)(((til::uint32)c) >> 16))
+#define RED(c)		((til::byte)(((til::uint32)c)))
+#define GREEN(c)	((til::byte)(((til::uint32)c) >>  8))
+#define BLUE(c)		((til::byte)(((til::uint32)c) >> 16))
 
 namespace ipo
 {
