@@ -1,0 +1,1 @@
+Implements some basic image dithering and palette transformations with help of an open source project TinyImageLoader, which is a nice one simple solution to open some image file formats.
